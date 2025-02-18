@@ -6,10 +6,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__logo">
-        <img className="logo" src={logoPokeball} alt="logo" />
-        <a href="/" className="header__link">
+        <Link to="/">
+          <img className="logo" src={logoPokeball} alt="logo" />
+        </Link>
+        <Link to="/" className="header__link">
           <h1>Pokedex</h1>
-        </a>
+        </Link>
       </div>
     </div>
   );

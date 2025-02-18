@@ -1,10 +1,13 @@
-import React from "react";
-import logoPokedex from "../assets/logo/game.png";
+import React, { useEffect } from "react";
 
 const Main = () => {
   {
+    gerarNumeroAleatorio();
+
     function gerarNumeroAleatorio() {
-      var numeroAleatorio = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+      // Gerar numero aleatorio para buscar um pokemon aleatorio
+
+      var numeroAleatorio = Math.floor(Math.random() * (900 - 1 + 1)) + 1;
       console.log(numeroAleatorio);
 
       fetch(`https://pokeapi.co/api/v2/pokemon/${numeroAleatorio.toString()}`)
@@ -23,7 +26,12 @@ const Main = () => {
         .catch((error) => console.error(error));
     }
 
-    setInterval(gerarNumeroAleatorio, 5000);
+    useEffect(() => {
+      const intervalId = setInterval(gerarNumeroAleatorio, 5000); // Define um intervalo de tempo para chamar a função gerar numero
+
+      // Limpa o intervalo quando o componente é desmontado
+      return () => clearInterval(intervalId);
+    }, []);
   }
 
   return (
@@ -48,12 +56,20 @@ const Main = () => {
           Comece sua jornada agora mesmo! Pesquise um Pokémon abaixo e descubra
           o que o aguarda. Gotta catch 'em all!
         </p>
+        <p>
+          <input
+            type="text"
+            placeholder="Digite o nome ou id do pokemon"
+            className="main__pesquisar"
+          />
+          <input type="button" className="main__button" value="Pesquisar" />
+        </p>
       </div>
       <img
         className="main__image"
-        src=""
         alt="Pokemon Sprite"
         id="pokemonSprite"
+        src="https://pokeapi.co/api/v2/pokemon/1"
       />
     </div>
   );

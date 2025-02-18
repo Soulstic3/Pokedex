@@ -1,13 +1,19 @@
 import React from "react";
 import Header from "./components/Header";
-import Main from "./components/Main";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Pokedex from "./pages/Pokedex";
 
 const App = () => {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <Main />
-    </>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pokedex" element={<Pokedex />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
