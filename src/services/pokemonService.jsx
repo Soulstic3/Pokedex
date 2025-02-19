@@ -15,3 +15,6 @@ export const fetchPokemon = async (pokemonId) => {
     return null;
   }
 };
+
+// pokémon maximo 1025
+// pokémon maximo com gif 920

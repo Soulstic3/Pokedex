@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 const Main = () => {
   const [pokemonSprite, setPokemonSprite] = useState();
 
+  const [error, setError] = useState(false); // esconde a mensagem de erro
+
   const gerarNumeroAleatorio = () => {
     // Gerar número aleatório para buscar um Pokémon aleatório
     const numeroAleatorio = Math.floor(Math.random() * (900 - 1 + 1)) + 1;
-    console.log(numeroAleatorio);
 
     // Usar o serviço para buscar o Pokémon
     fetchPokemon(numeroAleatorio)
@@ -39,8 +40,17 @@ const Main = () => {
   };
 
   const handleSearch = () => {
-    console.log("Valor enviado: ", inputValue);
-    navigate("/pokedex", { state: { pokemon: inputValue } });
+    fetchPokemon(inputValue)
+      .then((data) => {
+        if (data && data.name) {
+          navigate("/pokedex", { state: { pokemon: inputValue } });
+        } else {
+          setError(true); // mostra a mensagem de erro
+        }
+      })
+      .catch((error) => {
+        setError(true);
+      });
   };
 
   return (
@@ -81,6 +91,9 @@ const Main = () => {
             onClick={handleSearch}
           />
         </p>
+        {error && (
+          <p className="main__error">Pokemon não encontrado, tente novamente</p>
+        )}
       </div>
       <img
         className="main__image"

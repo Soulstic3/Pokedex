@@ -71,6 +71,10 @@
   margin-left: 5px;
 }
 
+.main__error {
+  color: red;
+}
+
 .pokedex__container {
   display: flex;
   padding: 40px;
@@ -79,6 +83,7 @@
 
 .pokedex {
   display: flex;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center;
   border: 1px solid black;
@@ -100,4 +105,8 @@
   height: 40px;
   width: 80px;
   margin-left: 5px;
+}
+
+.pokedex__image {
+  height: 200px;
 }
