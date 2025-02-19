@@ -9,6 +9,9 @@ const Pokedex = () => {
   const [pokemonSprite, setPokemonSprite] = useState();
   const [pokemonName, setPokemonName] = useState();
   const [pokemonId, setPokemonId] = useState();
+  const [pokemonAltura, setPokemonAltura] = useState();
+  const [pokemonPeso, setPokemonPeso] = useState();
+  const [pokemonTipo, setPokemonTipo] = useState([]);
   const [inputValue, setInputValue] = useState(initialPokemon);
 
   const inputRef = useRef(null); // Criação da referência para o input
@@ -21,6 +24,11 @@ const Pokedex = () => {
           setPokemonSprite(data.sprites.front_default);
           setPokemonName(data.name);
           setPokemonId(data.id);
+          setPokemonAltura(data.height);
+          setPokemonPeso(data.weight);
+          const tipos = data.types.map((tipo) => tipo.type.name);
+          setPokemonTipo(tipos);
+
           setInputValue("");
           console.log(data);
         }
@@ -79,12 +87,11 @@ const Pokedex = () => {
         </p>
       </div>
       <div className="pokedex__info">
-        <h2>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis
-          enim illo temporibus deserunt modi voluptate vel mollitia! Ex amet
-          iusto velit quae quia ipsam fugiat consequuntur, sint, tempora,
-          deserunt dolores?
-        </h2>
+        <p>Altura: {pokemonAltura}</p>
+        <p>Peso: {pokemonPeso}</p>
+        <p>Habilidades: {}</p>
+        <p>Tipo: {pokemonTipo.join(", ")}</p>
+        <p>Fraquezas: {}</p>
       </div>
     </div>
   );
