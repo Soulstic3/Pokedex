@@ -4,11 +4,33 @@
   box-sizing: border-box;
 }
 
+:root {
+  --cor-normal: #a8a77a;
+  --cor-fire: #ee8130;
+  --cor-water: #6390f0;
+  --cor-eletric: #f7d02c;
+  --cor-grass: #7ac74c;
+  --cor-ice: #96d9d6;
+  --cor-fighting: #c22e28;
+  --cor-poison: #a33ea1;
+  --cor-ground: #e2bf65;
+  --cor-flying: #a98ff3;
+  --cor-psychic: #f95587;
+  --cor-bug: #a6b91a;
+  --cor-rock: #b6a136;
+  --cor-ghost: #735797;
+  --cor-dragon: #6f35fc;
+  --cor-dark: #705746;
+  --cor-steel: #b7b7ce;
+  --cor-fairy: #d685ad;
+  --cor-red: #cc0000;
+}
+
 .header {
   display: flex;
   align-items: center;
   padding: 8px 10px;
-  background-color: #cc0000;
+  background-color: var(--cor-red);
 }
 
 .logo {
@@ -35,40 +57,63 @@
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+  background-image: linear-gradient(var(--cor-red), #570000);
 }
 
 .main {
-  margin: 40px 50px;
+  margin: 6vw 1vh 2vh;
   flex: 1;
-  align-items: center;
-  display: flex;
   border-radius: 15px;
   border: 1px solid black;
-  padding: 40px;
-  gap: 40px;
-  box-shadow: 5px 5px #888888;
+  background-color: white;
 }
 
-.main__text {
+.main__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+}
+
+.main__header__options {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 4vh;
+}
+
+.main__texto {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  text-align: justify;
-}
-
-.main__image {
-  height: 300px;
+  flex-grow: 1;
+  justify-content: space-around;
+  margin: 5vw;
+  gap: 40px;
 }
 
 .main__pesquisar {
-  width: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.main__pesquisar__campo {
+  border-radius: 20px;
+  border: solid 1px black;
+  box-shadow: 2px 2px rgb(146, 146, 146);
+  width: 400px;
+  text-align: center;
   height: 40px;
 }
 
-.main__button {
+.main__pesquisar__button {
   height: 40px;
-  width: 80px;
   margin-left: 5px;
+  border: solid 1px black;
+  box-shadow: 2px 2px rgb(146, 146, 146);
+  border-radius: 50%;
+  padding: 5px;
 }
 
 .main__error {
@@ -79,6 +124,8 @@
   display: flex;
   padding: 40px;
   gap: 20px;
+  border: 1px solid black;
+  margin: 10vh 4vh;
 }
 
 .pokedex {

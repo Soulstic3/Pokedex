@@ -33,7 +33,9 @@ const Pokedex = () => {
           console.log(data);
         }
         if (Number(data.id) < 920) {
-          setPokemonSprite(data.sprites.other.showdown.front_default);
+          setPokemonSprite(
+            data.sprites.other["official-artwork"].front_default
+          );
         }
       })
       .catch((error) => console.error(error));
@@ -59,40 +61,27 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex__container">
-      <div className="pokedex">
-        <h2>{pokemonName}</h2>
-        {pokemonSprite && (
-          <img
-            src={pokemonSprite}
-            alt="pokemon img"
-            className="pokedex__image"
-          />
-        )}
-        <h2>#{pokemonId}</h2>
-        <p className="pokedex__buscar">
-          <input
-            type="text"
-            placeholder="Digite o nome ou id do pokemon"
-            className="pokedex__pesquisar"
-            value={inputValue}
-            onChange={handleInputChange}
-            ref={inputRef}
-          />
-          <input
-            type="button"
-            className="pokedex__button"
-            value="Pesquisar"
-            onClick={handleSearch}
-          />
-        </p>
-      </div>
-      <div className="pokedex__info">
-        <p>Altura: {pokemonAltura}</p>
-        <p>Peso: {pokemonPeso}</p>
-        <p>Habilidades: {}</p>
-        <p>Tipo: {pokemonTipo.join(", ")}</p>
-        <p>Fraquezas: {}</p>
-      </div>
+      <h2 className="pokedex__name">{pokemonName}</h2>
+      {pokemonSprite && (
+        <img src={pokemonSprite} alt="pokemon img" className="pokedex__image" />
+      )}
+      <h2>#{pokemonId}</h2>
+      <p className="pokedex__buscar">
+        <input
+          type="text"
+          placeholder="Digite o nome ou id do pokemon"
+          className="pokedex__pesquisar"
+          value={inputValue}
+          onChange={handleInputChange}
+          ref={inputRef}
+        />
+        <input
+          type="button"
+          className="pokedex__button"
+          value="Pesquisar"
+          onClick={handleSearch}
+        />
+      </p>
     </div>
   );
 };
