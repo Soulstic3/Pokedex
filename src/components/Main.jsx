@@ -1,20 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { fetchPokemon } from "../services/pokemonService";
+import { fetchAllPokemons } from "../services/pokemonFetcher";
 import { useNavigate } from "react-router-dom";
 import option_icon from "../assets/icons/option_icon.png";
 import search_icon from "../assets/icons/search_icon.png";
+import ItemList from "./ItemList";
 
 const Main = () => {
-  const [pokemonSprite, setPokemonSprite] = useState();
-
   const [error, setError] = useState(false); // esconde a mensagem de erro
-
+  const [pokemons, setPokemons] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
+
+  useEffect(() => {
+    const getAllPokemons = async () => {
+      try {
+        const fetchedPokemons = await fetchAllPokemons();
+        console.log(fetchedPokemons);
+        setPokemons(fetchedPokemons);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getAllPokemons();
+  }, []); // O array vazio [] significa que o efeito será executado apenas uma vez, após a montagem do componente.
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   const handleSearch = () => {
     fetchPokemon(inputValue)
@@ -29,6 +54,18 @@ const Main = () => {
         setError(true);
       });
   };
+
+  // Extraindo id, name e front_default
+
+  const pokemonData = pokemons.map((pokemon) => ({
+    id: pokemon.id,
+
+    name: pokemon.name,
+
+    front_default: pokemon.sprites.front_default,
+
+    types: pokemon.types.map((typeInfo) => typeInfo.type.name),
+  }));
 
   return (
     <div className="main">
@@ -61,7 +98,9 @@ const Main = () => {
           <img src={option_icon} alt="opções" />
         </div>
       </div>
-      <div>{/*GRID*/}</div>
+      <div>
+        <ItemList pokemons={pokemonData} />
+      </div>
     </div>
   );
 };
