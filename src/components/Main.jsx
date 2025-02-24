@@ -8,6 +8,7 @@ import ItemList from "./ItemList";
 
 const Main = () => {
   const [error, setError] = useState(false); // esconde a mensagem de erro
+  const [dropdown, setDropdown] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -67,6 +68,10 @@ const Main = () => {
     types: pokemon.types.map((typeInfo) => typeInfo.type.name),
   }));
 
+  const exibirDropdown = () => {
+    setDropdown(!dropdown);
+  };
+
   return (
     <div className="main">
       <div className="main__header">
@@ -95,7 +100,44 @@ const Main = () => {
           <p className="main__ordem">Pokemons ordenados por numero</p>
         </div>
         <div className="main__header__options">
-          <img src={option_icon} alt="opções" />
+          <img src={option_icon} alt="opções" onClick={exibirDropdown} />
+          {dropdown && (
+            <div className="main-header__dropdown">
+              <a href="#" className="main-header__dropdown-link">
+                Ordem Numerica
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                Ordem A-Z
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                1º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                2º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                3º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                4º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                5º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                6º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                7º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                8º Gen
+              </a>
+              <a href="#" className="main-header__dropdown-link">
+                9º Gen
+              </a>
+            </div>
+          )}
         </div>
       </div>
       <div>

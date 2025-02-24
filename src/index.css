@@ -83,13 +83,41 @@
   align-items: flex-end;
   flex-direction: column;
   margin: 4vh;
+  gap: 4vh;
+}
+
+.main__header__options:hover {
+  cursor: pointer;
+}
+
+.main-header__dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin: 2vh;
+  padding: 4vh;
+  background-color: white;
+  border-radius: 20px;
+  border-top-right-radius: 0%;
+  border: solid 1px black;
+  width: 150px;
+  z-index: 1;
+  position: absolute;
+}
+
+.main-header__dropdown-link {
+  text-decoration: none;
+  color: black;
+}
+
+.main-header__dropdown-link:hover {
+  text-decoration: underline;
 }
 
 .main__texto {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-around;
+  justify-content: center;
   margin: 9vh 12vh;
   gap: 40px;
 }
@@ -194,10 +222,6 @@
   color: var(--cor-gray);
 }
 
-.single-item__name {
-  font-weight: 600;
-}
-
 .single-item__types {
   display: flex;
   flex-wrap: wrap;
@@ -208,8 +232,8 @@
   border-radius: 5px;
   margin-right: 5px;
   margin-bottom: 2vh;
-  color: white; /* Cor do texto */
-  font-weight: bold; /* Negrito */
+  color: white;
+  font-weight: bold;
 }
 
 /* COMPONENTE ITEM LIST */

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SingleItem = ({ id, name, front_default, types }) => {
+const SingleItem = ({ name, id, front_default, types }) => {
   const typeColors = {
     normal: "var(--cor-normal)",
     fire: "var(--cor-fire)",
