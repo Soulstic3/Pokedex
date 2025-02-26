@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchPokemon } from "../services/pokemonService";
 import { fetchAllPokemons } from "../services/pokemonFetcher";
 import { useNavigate } from "react-router-dom";
@@ -7,22 +7,25 @@ import search_icon from "../assets/icons/search_icon.png";
 import ItemList from "./ItemList";
 
 const Main = () => {
-  const [error, setError] = useState(false); // esconde a mensagem de erro
+  const [error, setError] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+  const [currentList, setCurrentList] = useState([]);
+  const [alfaPokemon, setAlfaPokemon] = useState([]);
+  const [numPokemon, setNumPokemon] = useState([]);
+  const generation = [151, 100, 135, 107, 156, 72, 88, 96, 120];
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+  // FETCH
 
   useEffect(() => {
     const getAllPokemons = async () => {
       try {
         const fetchedPokemons = await fetchAllPokemons();
-        console.log(fetchedPokemons);
+
         setPokemons(fetchedPokemons);
       } catch (err) {
         setError(err);
@@ -32,15 +35,56 @@ const Main = () => {
     };
 
     getAllPokemons();
-  }, []); // O array vazio [] significa que o efeito será executado apenas uma vez, após a montagem do componente.
+  }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // ORDER
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  useEffect(() => {
+    const pokemonData = pokemons.map((pokemon) => ({
+      id: pokemon.id,
+
+      name: pokemon.name,
+
+      front_default: pokemon.sprites.front_default,
+
+      types: pokemon.types.map((typeInfo) => typeInfo.type.name),
+    }));
+
+    const sortAlfa = pokemonData.slice().sort((a, b) => {
+      if (a.name < b.name) return -1;
+
+      if (a.name > b.name) return 1;
+
+      return 0;
+    });
+
+    setAlfaPokemon(sortAlfa);
+
+    setNumPokemon(pokemonData);
+  }, [pokemons]);
+
+  useEffect(() => {
+    const itemsPerPage = generation[currentPage];
+
+    const startIndex =
+      currentPage === 0
+        ? 0
+        : generation.slice(0, currentPage).reduce((a, b) => a + b, 0);
+
+    const endIndex = startIndex + itemsPerPage;
+
+    const currentItems = numPokemon.slice(startIndex, endIndex);
+
+    setCurrentList(currentItems);
+  }, [currentPage, numPokemon]);
+
+  const handleGeneration = (index) => {
+    setCurrentPage(index);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
   const handleSearch = () => {
     fetchPokemon(inputValue)
@@ -48,25 +92,24 @@ const Main = () => {
         if (data && data.name) {
           navigate("/pokedex", { state: { pokemon: inputValue } });
         } else {
-          setError(true); // mostra a mensagem de erro
+          setError(true);
         }
       })
-      .catch((error) => {
+
+      .catch(() => {
         setError(true);
       });
   };
 
-  // Extraindo id, name e front_default
+  const handleOrdem = (tipo) => {
+    if (tipo === "num") {
+      setCurrentList(numPokemon);
+    }
 
-  const pokemonData = pokemons.map((pokemon) => ({
-    id: pokemon.id,
-
-    name: pokemon.name,
-
-    front_default: pokemon.sprites.front_default,
-
-    types: pokemon.types.map((typeInfo) => typeInfo.type.name),
-  }));
+    if (tipo === "alfa") {
+      setCurrentList(alfaPokemon);
+    }
+  };
 
   const exibirDropdown = () => {
     setDropdown(!dropdown);
@@ -103,37 +146,81 @@ const Main = () => {
           <img src={option_icon} alt="opções" onClick={exibirDropdown} />
           {dropdown && (
             <div className="main-header__dropdown">
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleOrdem("num")}
+              >
                 Ordem Numerica
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleOrdem("alfa")}
+              >
                 Ordem A-Z
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(0)}
+              >
                 1º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(1)}
+              >
                 2º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(2)}
+              >
                 3º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(3)}
+              >
                 4º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(4)}
+              >
                 5º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(5)}
+              >
                 6º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(6)}
+              >
                 7º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(7)}
+              >
                 8º Gen
               </a>
-              <a href="#" className="main-header__dropdown-link">
+              <a
+                href="#"
+                className="main-header__dropdown-link"
+                onClick={() => handleGeneration(8)}
+              >
                 9º Gen
               </a>
             </div>
@@ -141,7 +228,7 @@ const Main = () => {
         </div>
       </div>
       <div>
-        <ItemList pokemons={pokemonData} />
+        <ItemList pokemons={currentList} />
       </div>
     </div>
   );

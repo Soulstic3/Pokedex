@@ -1,8 +1,7 @@
 // src/services/pokemonFetcher.js
 
 import { fetchPokemon } from "./pokemonService";
-
-const MAX_POKEMON_ID = 151;
+const MAX_POKEMON_ID = 1024;
 
 export const fetchAllPokemons = async () => {
   const promises = [];
