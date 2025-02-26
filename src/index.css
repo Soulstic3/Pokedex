@@ -201,6 +201,10 @@
   gap: 10px;
 }
 
+.single-item:hover {
+  cursor: pointer;
+}
+
 .single-item__div-image {
   width: 100px;
   height: 100px;

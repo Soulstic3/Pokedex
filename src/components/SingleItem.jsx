@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { fetchPokemon } from "../services/pokemonService";
+import { useNavigate } from "react-router-dom";
 
 const SingleItem = ({ name, id, front_default, types }) => {
+  const navigate = useNavigate();
+
   const typeColors = {
     normal: "var(--cor-normal)",
     fire: "var(--cor-fire)",
@@ -22,8 +26,28 @@ const SingleItem = ({ name, id, front_default, types }) => {
     steel: "var(--cor-steel)",
     fairy: "var(--cor-fairy)",
   };
+
+  const handleSearch = (id) => {
+    fetchPokemon(id)
+      .then((data) => {
+        if (data && data.name) {
+          navigate("/pokedex", { state: { pokemon: id } });
+        } else {
+          console.log("error");
+        }
+      })
+
+      .catch(() => {
+        console.log("error");
+      });
+  };
   return (
-    <Link to={"/"} className="single-item">
+    <div
+      className="single-item"
+      onClick={() => {
+        handleSearch(id);
+      }}
+    >
       <div className="single-item__div-image">
         <img className="single-item__img" src={front_default} alt="" />
       </div>
@@ -43,7 +67,7 @@ const SingleItem = ({ name, id, front_default, types }) => {
           ))}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

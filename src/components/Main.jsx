@@ -16,8 +16,11 @@ const Main = () => {
   const [currentList, setCurrentList] = useState([]);
   const [alfaPokemon, setAlfaPokemon] = useState([]);
   const [numPokemon, setNumPokemon] = useState([]);
+  const [allPokemon, setAllPokemon] = useState([]);
   const generation = [151, 100, 135, 107, 156, 72, 88, 96, 120];
   const [currentPage, setCurrentPage] = useState(0);
+  const [gen, setGen] = useState("1");
+  const [order, setOrder] = useState("numérica");
 
   // FETCH
 
@@ -50,17 +53,7 @@ const Main = () => {
       types: pokemon.types.map((typeInfo) => typeInfo.type.name),
     }));
 
-    const sortAlfa = pokemonData.slice().sort((a, b) => {
-      if (a.name < b.name) return -1;
-
-      if (a.name > b.name) return 1;
-
-      return 0;
-    });
-
-    setAlfaPokemon(sortAlfa);
-
-    setNumPokemon(pokemonData);
+    setAllPokemon(pokemonData);
   }, [pokemons]);
 
   useEffect(() => {
@@ -73,13 +66,25 @@ const Main = () => {
 
     const endIndex = startIndex + itemsPerPage;
 
-    const currentItems = numPokemon.slice(startIndex, endIndex);
+    const currentItems = allPokemon.slice(startIndex, endIndex);
 
     setCurrentList(currentItems);
-  }, [currentPage, numPokemon]);
+    setNumPokemon(currentItems.slice());
+    const sortAlfa = currentItems.slice().sort((a, b) => {
+      if (a.name < b.name) return -1;
+
+      if (a.name > b.name) return 1;
+
+      return 0;
+    });
+
+    setAlfaPokemon(sortAlfa);
+  }, [currentPage, allPokemon]);
 
   const handleGeneration = (index) => {
     setCurrentPage(index);
+    setGen(index + 1);
+    setOrder("numérica");
   };
 
   const handleInputChange = (event) => {
@@ -104,10 +109,11 @@ const Main = () => {
   const handleOrdem = (tipo) => {
     if (tipo === "num") {
       setCurrentList(numPokemon);
+      setOrder("numérica");
     }
-
     if (tipo === "alfa") {
       setCurrentList(alfaPokemon);
+      setOrder("alfabética");
     }
   };
 
@@ -140,7 +146,7 @@ const Main = () => {
               Pokemon não encontrado, tente novamente
             </p>
           )}
-          <p className="main__ordem">Pokemons ordenados por numero</p>
+          <p className="main__ordem">{`Pokemons da ${gen}º geração ordenados por ordem ${order}`}</p>
         </div>
         <div className="main__header__options">
           <img src={option_icon} alt="opções" onClick={exibirDropdown} />
