@@ -152,21 +152,46 @@
 
 /* PAGINA POKEDEX */
 .pokedex__container {
+  background-color: white;
+  margin: 4vh 2vw 2vw;
+  padding: 8vh 3vw 3vw;
+  border-radius: 20px;
   display: flex;
-  padding: 40px;
-  gap: 20px;
-  border: 1px solid black;
-  margin: 10vh 4vh;
+  flex-direction: column;
+  align-items: stretch;
+  flex-grow: 1;
 }
 
-.pokedex {
+.pokedex__divs {
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
+  margin: 10vh 1vw 10vh;
+}
+.pokedex__header {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
-  padding: 20px;
-  height: 80svh;
+}
+
+.pokedex__number {
+  color: #595858;
+}
+
+.pokedex__div__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.pokedex__div__image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+}
+.pokedex__info__title {
+  margin-bottom: 3vh;
 }
 
 .pokedex__buscar {
@@ -187,6 +212,16 @@
 
 .pokedex__image {
   height: 200px;
+  width: 200px;
+}
+
+.pokedex__stat {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  white-space: nowrap;
+  justify-content: right;
+  gap: 1vw;
 }
 
 /* COMPONENTE SINGLE ITEM*/
@@ -246,4 +281,20 @@
   gap: 2vh;
   margin: 2vh;
   grid-template-columns: repeat(auto-fit, minmax(172px, 1fr));
+}
+
+/* COMPONENTE PROGRESS BAR*/
+.progress-bar-container {
+  width: 12vw;
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  justify-self: right;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #7c7c7c;
+  transition: width 0.3s ease;
 }
