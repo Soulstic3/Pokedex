@@ -75,6 +75,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 5vh;
   flex-wrap: wrap-reverse;
 }
 
@@ -82,8 +83,6 @@
   display: flex;
   align-items: flex-end;
   flex-direction: column;
-  margin: 4vh;
-  gap: 4vh;
 }
 
 .main__header__options:hover {
@@ -118,7 +117,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 9vh 12vh;
   gap: 40px;
 }
 
@@ -297,4 +295,70 @@
   height: 100%;
   background-color: #7c7c7c;
   transition: width 0.3s ease;
+}
+
+/*FORMATAÇÃO PARA TABLET*/
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .main__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .main__texto {
+    margin: 5vh 3vw;
+  }
+
+  .main__header__options {
+    margin-right: 4vw;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .main__pesquisar__campo {
+    width: 40vw;
+  }
+
+  .main__texto {
+    margin: 5vh 1vw;
+  }
+
+  .main__header__options {
+    margin-right: 1vw;
+    flex-grow: 1;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .main__header {
+    padding: 2vh;
+  }
+
+  .main__header__options {
+    margin-right: 1vw;
+    flex-grow: 1;
+  }
+
+  .main__texto {
+    margin-top: 5vh;
+    gap: 2vh;
+    width: 85vw;
+  }
+
+  .main__pesquisar {
+    gap: 2vw;
+  }
+
+  .item-list__container {
+    gap: 2vw;
+    margin: 6vw;
+    grid-template-columns: 40vw 40vw;
+  }
+
+  .single-item {
+    width: 40vw;
+    height: 20vh;
+    gap: 2px;
+    font-size: smaller;
+  }
 }
