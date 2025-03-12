@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { fetchPokemon } from "../services/pokemonService";
 import { useLocation } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
+import search_icon from "../assets/icons/search_icon.png";
 
 const Pokedex = () => {
   const location = useLocation();
@@ -148,9 +149,15 @@ const Pokedex = () => {
         </div>
         <div className="pokedex__div__info">
           <h2 className="pokedex__info__title">Pokédex data:</h2>
-          <p>{`Altura: ${pokemonAltura}`}</p>
-          <p>{`Peso: ${pokemonPeso}`}</p>
-          <p>{`Habilidades: ${pokemonHabilidades[0]}, ${pokemonHabilidades[1]}`}</p>
+          <p>{`Altura: ${(pokemonAltura / 10).toFixed(1)}m`}</p>
+          <p>{`Peso: ${(pokemonPeso / 10).toFixed(1)}kg`}</p>
+          <p>
+            {`Habilidades: ${
+              pokemonHabilidades.length > 1
+                ? `${pokemonHabilidades[0]}, ${pokemonHabilidades[1]}`
+                : pokemonHabilidades[0]
+            }`}
+          </p>{" "}
         </div>
         <div className="pokedex__div__stats">
           <h2>Base stats:</h2>
@@ -189,11 +196,12 @@ const Pokedex = () => {
           onChange={handleInputChange}
           ref={inputRef}
         />
-        <input
-          type="button"
-          className="pokedex__button"
-          value="Pesquisar"
+        <img
+          src={search_icon}
+          alt="Pesquisar"
+          className="main__pesquisar__button"
           onClick={handleSearch}
+          style={{ cursor: "pointer" }} // Adiciona um cursor de ponteiro
         />
       </p>
     </div>
